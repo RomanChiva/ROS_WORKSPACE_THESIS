@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Debug Info -->
+    <arg name="debug" default="false" />
+    <arg unless="$(arg debug)" name="launch_prefix" value="" />
+    <arg     if="$(arg debug)" name="launch_prefix" value="gdb --ex run --args" />
+    <arg name="debug_config_parameter" default="false"/>
+    <arg name="debug_kinematic_cal" default="false"/>
+    <arg name="debug_collision_detection" default="false"/>
+    <!-- GUI -->
+    <arg name="gui" default="false" />
+
+
+    <!-- Robot Simulation -->
+    <include file="$(find legibility_tests)/launch/jackal_world.launch">
+    <arg name="gui" value="$(arg gui)" />
+    </include>
+    
+    
+    <!-- Robot state -->
+    <include file="$(find mobile_robot_state_publisher)/launch/mobile_robot_publisher.launch">
+    </include>
+    
+    <!-- Launch the Jackal controller node --> 
+    <node pkg="legibility_tests" type="BenchmarkController.py" name="jackal_controller" output="screen"/>
+    
+      
+    <!-- configured rviz -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find legibility_tests)/rviz_config/RVIZ_plus.rviz" output="log"/>
+    
+
+</launch>

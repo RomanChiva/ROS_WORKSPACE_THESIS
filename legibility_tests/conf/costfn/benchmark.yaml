@@ -1,0 +1,4 @@
+goals: [[20,0], [10,0]]
+goal_index: 0
+alpha_steps: 100
+alpha_max: 0

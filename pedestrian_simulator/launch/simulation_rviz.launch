@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<launch>
+
+     <!-- Debug Info -->
+    <arg name="debug" default="false" />
+    <arg unless="$(arg debug)" name="launch_prefix" value="" />
+    <arg     if="$(arg debug)" name="launch_prefix" value="gdb --ex run --args" />
+    <arg name="debug_config_parameter" default="false"/>
+    <arg name="debug_kinematic_cal" default="false"/>
+    <arg name="debug_collision_detection" default="false"/>
+    <arg name="gui" default="false" />
+
+    <rosparam command="load" file="$(find pedestrian_simulator)/config/configuration.yaml"/>
+    
+    <!-- Robot Simulation -->
+    <include file="$(find jackal_gazebo)/launch/jackal_world.launch">
+    <arg name="gui" value="$(arg gui)" />
+    </include>
+    
+    <!-- Robot state -->
+    <include file="$(find mobile_robot_state_publisher)/launch/mobile_robot_publisher.launch">
+    </include>
+
+    <node pkg="pedestrian_simulator" type="pedestrian_simulator_node" name="pedestrian_simulator_node" cwd="node" respawn="false" output="screen"/>
+    <!-- configured rviz -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find frenet_optimal_planner)/rviz/jackal_simulator.rviz" output="log"/>
+
+    
+</launch>  

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tag type="gaussian"/>
+<tag type="velocity" value="0.75"/>
+<!-- 1 -->
+<pedestrian>
+    <start x="9" y="0"/>
+    <path>
+        <point x="0" y="0"/>
+    </path>
+</pedestrian> 
+ <pedestrian> 
+    <start x="3.5" y="1"/>
+    <path>
+        <point x="3.5" y="-1"/>
+    </path>
+</pedestrian> 
+
